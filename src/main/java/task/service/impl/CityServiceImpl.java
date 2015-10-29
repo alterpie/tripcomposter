@@ -3,13 +3,14 @@ package task.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import task.dao.CityDao;
+import task.exception.ApplicationException;
 import task.model.City;
 import task.service.CityService;
 
 import java.util.List;
 
 @Service
-public class CityServiceImpl implements CityService{
+public class CityServiceImpl implements CityService {
 
     @Autowired
     private CityDao cityDao;
@@ -20,18 +21,19 @@ public class CityServiceImpl implements CityService{
     @Override
     public boolean add(City city) {
 
-        if (city == null) return false;
+        if (city==null)return false;
         return cityDao.create(city).equals(city);
     }
 
     @Override
-    public City find(String name) {
+    public City find(String name) throws ApplicationException {
 
         return cityDao.findByName(name);
+
     }
 
     @Override
-    public List<City> finaAllInCountry(String countryName) {
+    public List<City> findAllInCountry(String countryName) throws ApplicationException {
 
         return cityDao.findAllByCountryName(countryName);
     }
@@ -42,7 +44,7 @@ public class CityServiceImpl implements CityService{
     }
 
     @Override
-    public boolean remove(City city) {
+    public boolean remove(City city) throws ApplicationException {
         return cityDao.delete(city) == null;
     }
 

@@ -1,5 +1,7 @@
 package task.dao;
 
+import task.exception.ApplicationException;
+
 public interface EntityDao<T> {
 
     T create(T model);
@@ -8,6 +10,6 @@ public interface EntityDao<T> {
 
     T update(T model);
 
-    T delete(T model);
+    T delete(T model) throws ApplicationException;
 
 }

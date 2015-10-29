@@ -1,10 +1,11 @@
-package task;
+package task.response;
 
 import task.model.Country;
 
 import java.util.List;
 
 public class ResponseDataObject {
+
     private long time;
     private List<Country> countries;
     private String echo;

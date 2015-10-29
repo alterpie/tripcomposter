@@ -57,8 +57,7 @@ public class Country extends Model {
         Country country = (Country) o;
 
         if (!countryName.equals(country.countryName)) return false;
-        if (!countryISOCode.equals(country.countryISOCode)) return false;
-        return cities.equals(country.cities);
+        return countryISOCode.equals(country.countryISOCode);
 
     }
 
@@ -66,7 +65,6 @@ public class Country extends Model {
     public int hashCode() {
         int result = countryName.hashCode();
         result = 31 * result + countryISOCode.hashCode();
-        result = 31 * result + cities.hashCode();
         return result;
     }
 

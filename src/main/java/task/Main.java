@@ -11,6 +11,6 @@ public class Main {
 
         ApplicationRun run = ctx.getBean(ApplicationRun.class);
 
-        run.doTestTask("http://tripcomposer.net/rest/test/countries/get");
+        run.doTestTask("http://tripcomposer.net/rest/test/countries/get", "$1$12309856$euBrWcjT767K2sP9MHcVS/");
     }
 }

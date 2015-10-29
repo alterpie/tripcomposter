@@ -1,6 +1,7 @@
 package task.dao.impl;
 
 import task.dao.CountryDao;
+import task.exception.ApplicationException;
 import task.model.Country;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,7 +25,7 @@ public class CountryDaoHibernate implements CountryDao {
     }
 
     public Country findById(long id) {
-        return entityManager.find(Country.class,id);
+        return entityManager.find(Country.class, id);
     }
 
 
@@ -33,12 +34,14 @@ public class CountryDaoHibernate implements CountryDao {
     }
 
     @Transactional
-    public Country delete(Country country) {
+    public Country delete(Country country) throws ApplicationException {
         entityManager.remove(country);
         return findByName(country.getCountryName());
     }
 
-    public Country findByName(String name) {
+    public Country findByName(String name) throws ApplicationException {
+
+        if (name == null) throw new ApplicationException();
         return (Country) entityManager.createQuery("FROM Country c WHERE c.countryName = :name")
                 .setParameter("name", name).getSingleResult();
     }
@@ -47,7 +50,7 @@ public class CountryDaoHibernate implements CountryDao {
         return entityManager.createQuery("FROM Country").getResultList();
     }
 
-    public Country deleteByName(String name) {
+    public Country deleteByName(String name) throws ApplicationException {
         Country savedCountry = findByName(name);
         return delete(savedCountry);
     }

@@ -1,6 +1,7 @@
-package task;
+package task.response;
 
 import org.springframework.stereotype.Component;
+import task.exception.ApplicationException;
 import task.model.City;
 import task.model.Country;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +22,9 @@ public class ResponseProcessorImpl implements ResponseProcessor {
     public ResponseProcessorImpl() {
     }
 
+
     @Override
-    public void saveInfo(ResponseDataObject dataObject) {
+    public void saveToDataBase(ResponseDataObject dataObject) {
         ResponseDataObject updatedData = updateData(dataObject);
 
         List<Country> countries = updatedData.getCountries();
@@ -35,6 +37,8 @@ public class ResponseProcessorImpl implements ResponseProcessor {
         }
     }
 
+    //support method that saves country in database, creates new instance of Country
+    // with value that was taken from database and sets it in each instance of City class in array
     public ResponseDataObject updateData(ResponseDataObject dataObject) {
         ResponseDataObject updatedData = null;
 
@@ -48,17 +52,23 @@ public class ResponseProcessorImpl implements ResponseProcessor {
 
                 List<City> cities = country.getCities();
 
-                Country savedCountry = countryService.find(country.getCountryName());
+                Country savedCountry = null;
+                try {
+                    savedCountry = countryService.find(country.getCountryName());
 
-                for (City city : cities) {
-                    city.setCountry(savedCountry);
+                    for (City city : cities) {
+                        city.setCountry(savedCountry);
+                    }
+                } catch (ApplicationException e) {
+                    e.printStackTrace();
                 }
-            }
-            updatedData = new ResponseDataObject();
-            updatedData.setCountries(countries);
-            updatedData.setTime(dataObject.getTime());
-            updatedData.setEcho(dataObject.getEcho());
 
+                updatedData = new ResponseDataObject();
+                updatedData.setCountries(countries);
+                updatedData.setTime(dataObject.getTime());
+                updatedData.setEcho(dataObject.getEcho());
+
+            }
         }
         return updatedData;
     }

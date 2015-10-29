@@ -1,6 +1,7 @@
 package task.service.impl;
 
 import task.dao.CountryDao;
+import task.exception.ApplicationException;
 import task.model.Country;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ public class CountryServiceImpl implements CountryService {
     }
 
     @Override
-    public Country find(String name) {
+    public Country find(String name) throws ApplicationException {
         return countryDao.findByName(name);
     }
 
@@ -33,7 +34,7 @@ public class CountryServiceImpl implements CountryService {
     }
 
     @Override
-    public boolean remove(Country country) {
+    public boolean remove(Country country) throws ApplicationException {
         return countryDao.delete(country) == null;
     }
 

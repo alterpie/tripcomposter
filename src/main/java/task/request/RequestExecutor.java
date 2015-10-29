@@ -1,4 +1,4 @@
-package task;
+package task.request;
 
 import com.google.gson.Gson;
 
