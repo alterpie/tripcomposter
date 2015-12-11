@@ -1,5 +1,6 @@
 package task.service.impl;
 
+import org.springframework.transaction.annotation.Transactional;
 import task.dao.CountryDao;
 import task.exception.ApplicationException;
 import task.model.Country;
@@ -9,6 +10,7 @@ import task.service.CountryService;
 import java.util.List;
 
 @Service
+@Transactional
 public class CountryServiceImpl implements CountryService {
 
     @Autowired

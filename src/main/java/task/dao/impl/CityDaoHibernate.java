@@ -4,7 +4,6 @@ import task.dao.CityDao;
 import task.exception.ApplicationException;
 import task.model.City;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -19,7 +18,6 @@ public class CityDaoHibernate implements CityDao {
     public CityDaoHibernate() {
     }
 
-    @Transactional
     public City create(City city) {
         return entityManager.merge(city);
     }
@@ -33,7 +31,6 @@ public class CityDaoHibernate implements CityDao {
         return create(city);
     }
 
-    @Transactional
     public City delete(City city) throws ApplicationException {
         entityManager.remove(city);
         return findByName(city.getCityName());

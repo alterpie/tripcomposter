@@ -4,7 +4,6 @@ import task.dao.CountryDao;
 import task.exception.ApplicationException;
 import task.model.Country;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -19,7 +18,6 @@ public class CountryDaoHibernate implements CountryDao {
     public CountryDaoHibernate() {
     }
 
-    @Transactional
     public Country create(Country country) {
         return entityManager.merge(country);
     }
@@ -33,7 +31,6 @@ public class CountryDaoHibernate implements CountryDao {
         return create(country);
     }
 
-    @Transactional
     public Country delete(Country country) throws ApplicationException {
         entityManager.remove(country);
         return findByName(country.getCountryName());

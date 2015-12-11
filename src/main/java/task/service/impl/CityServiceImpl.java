@@ -2,6 +2,7 @@ package task.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import task.dao.CityDao;
 import task.exception.ApplicationException;
 import task.model.City;
@@ -10,6 +11,7 @@ import task.service.CityService;
 import java.util.List;
 
 @Service
+@Transactional
 public class CityServiceImpl implements CityService {
 
     @Autowired
